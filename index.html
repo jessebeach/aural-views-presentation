@@ -224,15 +224,98 @@
           </aside>
         </section>
 
-        <!-- Lots of slides between what's above and the next one. I just wanted a code hinting example to copy-paste. -->
+        <section>
+          <section>
+            <h1>dynamic applications undergo state and property changes.</h1>
+          </section>
+          <section>
+            <iframe width="100%" height="100%" src="http://www.youtube.com/embed/wqmEYhe2JZ0" frameborder="0" allowfullscreen></iframe>
+          </section>
+          <aside class="notes">
+            <p>[Jesse] A few examples of infinite scrolling. Page content is updated dynamically as the user scrolls a page. Ideally, this would not only be visually indicated. It would be indicated through aural updates as well.</p>
+          </aside>
+        </section>
 
         <section>
-          <h2>ARIA-Live</h2>
-          <pre><code data-trim contenteditable>
+          <h1>those changes must be <strong>expressed</strong></h1>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h1>we build <strong>interfaces</strong></h1>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h1>for <strong>everyone</strong></h1>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h1>so how do we do it?</h1>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h1><strong>show</strong> and <strong>announce</strong> the changes</h1>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <iframe width="100%" height="100%" src="http://www.youtube.com/embed/xfdQYToZ9No" frameborder="0" allowfullscreen></iframe>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>ARIA</h1>
+            <p class="fragment roll-in"><i>Accessible Rich Internet Applications</i></p>
+          </section>
+          <section>
+            <h2>We use ARIA attributes to represent through markup what you are accustomed to representing through visual language.</h2>
+          </section>
+          <section>
+            <h2>States like</h2>
+            <ul>
+              <li class="fragment roll-in">active</li>
+              <li class="fragment roll-in">disabled</li>
+              <li class="fragment roll-in">pressed</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Properties like</h2>
+            <ul>
+              <li class="fragment roll-in">label</li>
+              <li class="fragment roll-in">form</li>
+              <li class="fragment roll-in">dialog</li>
+            </ul>
+          </section>
+          <section>
+            !! We need ARIA code examples here.
+          </section>
+          <aside class="notes">
+
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>ARIA-Live</h1>
+            <p class="fragment">Describes an HTML element that reads its contents when those contents are altered.</p>
+          </section>
+          <section>
+            <pre><code data-trim contenteditable>
 <div aria-live="polite" class="element-hidden">
   some text to speak
 </div>
-          </code></pre>
+            </code></pre>
+          </section>
           <aside class="notes">
             <p>Describes an HTML element that reads its contents when those contents are altered.</p>
           </aside>
@@ -240,6 +323,28 @@
 
         <section>
           <img src="images/closer.png" />
+        </section>
+
+        <section>
+          <h1>Drupal.announce</h1>
+          <aside class="notes">
+
+          </aside>
+        </section>
+
+        <section>
+          <pre><code data-trim contenteditable>
+// Pass a string.
+Drupal.announce('The application has been updated.');
+
+// Make sure the string is translatable.
+Drupal.announce(
+  Drupal.t('The application has been updated.')
+);
+          </code></pre>
+          <aside class="notes">
+
+          </aside>
         </section>
 
       </div>
