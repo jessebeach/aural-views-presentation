@@ -558,70 +558,92 @@ Cardigan cosby sweater fanny pack.
 
         <section>
           <section>
-            <h1>Backbonification of Core JS</h1>
+            <h1>one <em>model</em>,<br />many <em>views</em></h1>
+            <aside class="notes">
+              <p>We are using Backbone to formalize modal interactions</p>
+            </aside>
           </section>
           <section>
-            <blockquote>The essential premise at the heart of Backbone has always been to try and <b>discover the minimal set of data-structuring</b> (Models and Collections) and user interface (Views and URLs) primitives that are useful when building web applications with JavaScript.</blockquote>
+            <h2>Backbonification of Core JS</h2>
+            <pre><code class="javascript">function toggleEditMode (event, data) {
+  for (var i = contextuals.length - 1; i >= 0; i--) {
+    contextuals[i][(data.status) ? 'detachHighlightBehaviors' : 'attachHighlightBehaviors']();
+    contextuals[i].$region.toggleClass('contextual-region-active', data.status);
+  }
+}</code></pre>
+            <p>versus</p>
+            <pre><code class="javascript">_toggleEditMode: function (event, data) {
+  Drupal.contextual.collection.each(function (model) {
+    model.set('isLocked', data.status);
+  });
+}</code></pre>
+            <aside class="notes">
+              <ul>
+                <li>[Wim] Instead of each piece of JS inventing its own structure (cfr. Drupal's NIH — Not Invented Here): use Models, Collections and Views.</li>
+                <li>[Wim] From: the typical Drupal JS, where almost everything is DOM/DOM event driven.</li>
+                <li>[Wim] To: well-structured JS, with a few very basic structures, we use Backbone's structures</li>
+                <li>[Wim] So, question: "Why Backbone.js?".</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <blockquote>The essential premise at the heart of Backbone has always been to try and <b style="text-decoration: underline">discover the minimal set of data-structuring</b> (Models and Collections) and user interface (Views and URLs) primitives that are useful when building web applications with JavaScript.</blockquote>
             <div class="sources">
-              <small><a href="http://ashkenas.com/backbonejs-1.0/">Jeremy Ashkenas - http://ashkenas.com/backbonejs-1.0/</a></small>
+              <small><a href="http://ashkenas.com/backbonejs-1.0/">Jeremy Ashkenas — http://ashkenas.com/backbonejs-1.0/</a></small>
             </div>
             <aside class="notes">
               <p>Why Backbone?</p>
               <p>No special reason.</p>
-              <p>We don't want to impose a certain highly restrictive structure on JS, nor does Backbone</p>
+              <p>We don't want to impose a certain highly restrictive structure on JS, nor does Backbone.</p>
             </aside>
           </section>
-          <aside class="notes">
-          </aside>
-        </section>
-
-        <section>
           <section>
-            <h1>Framework doesn't matter</h1>
+            <h2>Framework doesn't matter</h2>
           </section>
           <section>
-            <h1>Separation of concerns matters</h1>
+            <h2>Separation of concerns matters</h2>
           </section>
           <section>
             <h2>Before Drupal 8</h2>
             <p class="fragment">event handlers<span class="fragment"> ⟶ rendering</span> <span class="fragment"> ⟶ debug hell</span></p>
+            <aside class="notes">
+              <p>[Wim] DOM event handlers <em>directly</em> performed rendering (i.e. DOM modifications). This made debugging very hard, painful, frustrating …</p>
+            </aside>
           </section>
           <section>
             <h2>Now in Drupal 8</h2>
             <p class="fragment">events<span class="fragment"> ⟶ state</span></p>
             <p class="fragment">state<span class="fragment"> ⟶ rendering</span></p>
-            <p class="fragment">developer<span class="fragment"> ⟶ happy</span></p>
-          </section>
-          <aside class="notes">
-            <p>Most (if not all) JS benefits from its state being updated via events, and then things being rerendered in response to those state changes.</p>
-            <p>No more subtle edge cases.</p>
-            <p>Separation of concerns invites better/completer docs.</p>
-            <p>Pre-Drupal 8 JS is often very complex to evolve, and to somebody who never saw the code, nigh impossible to understand all edge cases.</p>
-            <p>So: Backbone because it's widely used, many docs, concise. It tries to do little!</p>
-            <p>Easy to refactor Backbone code to another framework.</p>
-          </aside>
-        </section>
-
-        <section>
-          !! Insert the "Backbone at a glance" graphic.
-          <aside class="notes">
-            <p>Source: http://kiranb.scripts.mit.edu/backbone-slides/#compenents-diagram</p>
-          </aside>
-        </section>
-
-        <section>
-          <section>
-            <h1>Backbone.View render method</h1>
+            <p class="fragment" style="margin-top: 1em">developer<span class="fragment"> ⟶ happy</span></p>
+            <aside class="notes">
+              <ul>
+                <li>Most (if not all) JS benefits from its state being updated via events, and then things being rerendered in response to those state changes.</li>
+                <li>No more subtle edge cases.</li>
+                <li>Separation of concerns invites better/completer docs.</li>
+                <li>Pre-Drupal 8 JS is often very complex to evolve, and to somebody who never saw the code, nigh impossible to understand all edge cases.</li>
+                <li>So: Backbone because it's widely used, many docs, concise. It tries to do little!</li>
+                <li>Finally: easy to refactor Backbone code to another framework.</li>
+              </ul>
+            </aside>
           </section>
           <section>
-            <h2>A Backbone View lets us separate Model changes from presentation (visual or aural).</h2>
-            <p class="fragment">Inputs: Keyboard, Mouse, Voice(?), Gesture</p>
-            <p class="fragment">Change: Model updates</p>
-            <p class="fragment">Outputs: Visual View, Aural View</p>
-            <p class="fragment">Adding input and outputs can be done independently because of the common Model they share.</p>
+            <h2>Why Backbone.js?</h2>
+            <pre><code class="javascript">function toggleEditMode (event, data) {
+  for (var i = contextuals.length - 1; i >= 0; i--) {
+    contextuals[i][(data.status) ? 'detachHighlightBehaviors' : 'attachHighlightBehaviors']();
+    contextuals[i].$region.toggleClass('contextual-region-active', data.status);
+  }
+  }</code></pre>
+            <p>versus</p>
+            <pre><code class="javascript">_toggleEditMode: function (event, data) {
+  Drupal.contextual.collection.each(function (model) {
+    model.set('isLocked', data.status);
+  });
+  }</code></pre>
+            <aside class="notes">
+              <p>[Wim] This is pretty much the same slide as before — now the reader/attendee should be able to understand better why this is so much better.</p>
+            </aside>
           </section>
-          <aside class="notes">
-          </aside>
         </section>
 
         <section>
