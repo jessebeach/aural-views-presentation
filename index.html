@@ -513,17 +513,34 @@ Freegan before they sold out polaroid. pitchfork letterpress polaroid four loko.
           </section>
           <section>
             <pre><code data-trim contenteditable class="javascript">
-manageTabbing: function (model, isViewing) {
+manageTabbing: function (model, isViewing, options) {
   var tabbingContext = this.model.get('tabbingContext');
   // Always release an existing tabbing context.
   if (tabbingContext) {
     tabbingContext.release();
+    Drupal.announce(this.options.strings.tabbingReleased);
   }
   // Create a new tabbing context when edit mode is enabled.
   if (!isViewing) {
     tabbingContext = Drupal.tabbingManager.constrain($('.contextual-toolbar-tab, .contextual'));
     this.model.set('tabbingContext', tabbingContext);
+    this.announceTabbingConstraint();
+    this.announcedOnce = true;
   }
+},
+            </code></pre>
+          </section>
+          <section>
+            <h2>Announce the details of the constraint.</h2>
+          </section>
+          <section>
+            <pre><code data-trim contenteditable>
+announceTabbingConstraint: function () {
+  var strings = this.options.strings;
+  Drupal.announce(Drupal.t(strings.tabbingConstrained, {
+    '@contextualsCount': Drupal.formatPlural(Drupal.contextual.collection.length, strings.contextualsCount.singular, strings.contextualsCount.plural)
+  }));
+  Drupal.announce(strings.pressEsc);
 },
             </code></pre>
           </section>
@@ -531,11 +548,51 @@ manageTabbing: function (model, isViewing) {
           </aside>
         </section>
 
+        <section>
+          <section>
+            <h1>Complex tabbing flows</h1>
+          </section>
+          <section>
+            <h2>Tabbing contexts can be stacked and popped as a user moves between task flows, even between modules.</h2>
+          </section>
+          <section>
+            <iframe width="100%" height="100%" src="http://www.youtube.com/embed/Znu0ZFB1GA0" frameborder="0" allowfullscreen></iframe>
+          </section>
+          <aside class="notes">
+            <p>[Wim] Let's have another look at how tabbing is constrained when the user enables edit mode and then opens the overlay. Note how the edit mode tabbing constraint is restored after the overlay tabbing constraint context is removed.</p>
+            <p>[Wim] The tabbing constraint contexts do not need to be managed by any module. If your module releases its constraints, but that constraint is overridden and not active, it will not be activated again later.</p>
+          </aside>
+        </section>
 
+        <section>
+          <h1>Embrace <b>modalities</b></h1>
+          <aside class="notes">
+            <p>A modality refers to the medium that we use to access information. That medium may be visual, it may be aural; it might be through touch as well.</p>
+            <p>We can account for modalities in our code. Indeed we've begun to do this in Drupal Core.</p>
+          </aside>
+        </section>
 
+        <section>
+          <h1>Visual, Aural and Keyboard Views</h1>
+          <aside class="notes">
+          </aside>
+        </section>
 
+        <section>
+          <h1>one <b>model</b>,<br />many <b>views</b></h1>
+          <aside class="notes">
+            <p>We are using Backbone to formalize modal interactions</p>
+          </aside>
+        </section>
 
-
+        <section>
+          <section>
+            <h1>Backbonification of Core JS</h1>
+          </section>
+          <section>
+          !! This is where we talk about Visual and Aural views with code examples!
+          </section>
+        </section>
 
 
 
