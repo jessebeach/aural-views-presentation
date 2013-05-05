@@ -291,13 +291,9 @@
           </section>
           <section>
             !! We need ARIA code examples here.
+            <aside class="notes">
+            </aside>
           </section>
-          <aside class="notes">
-
-          </aside>
-        </section>
-
-        <section>
           <section>
             <h1>ARIA-Live</h1>
             <p class="fragment">Describes an HTML element that reads its contents when those contents are altered.</p>
@@ -313,87 +309,77 @@
         </section>
 
         <section>
-          <h1>Drupal.announce</h1>
-          <aside class="notes">
-            <p>In Drupal 8, we provide a simple way to turn text into speech.</p>
-          </aside>
-        </section>
-
-        <section>
-          <pre><code data-trim contenteditable class="javascript">
-// Pass a string.
-Drupal.announce('The application has been updated.');
-
-// Make sure the string is translatable.
-Drupal.announce(
-  Drupal.t('The application has been updated.')
-);
-          </code></pre>
-          <aside class="notes">
-
-          </aside>
-        </section>
-
-        <section>
-          <section><h1>Wait, doesn't this accessibility feature depend on JavaScript?</h1></section>
-          <section><h1>Isn't that bad?</h1></section>
-          <aside class="notes">
-
-          </aside>
-        </section>
-
-        <section>
-          <table>
-            <thead>
-              <tr>
-                <th>JavaScript Enabled</th>
-                <th>% of Respondents</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Yes</td>
-                <td>98.6%</td>
-              </tr>
-              <tr>
-                <td>No</td>
-                <td>1.4%</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="sources">
-            <small><a href="http://webaim.org/projects/screenreadersurvey4/">WebAIM 2012 Survery</a></small>
-          </div>
-          <aside class="notes">
-            <p>The rate of users that employ a screen reader and who have JavaScript enabled is about the same as those who don't a screen reader.</p>
-            <p>http://developer.yahoo.com/blogs/ydn/many-users-javascript-disabled-14121.html</p>
-          </aside>
-        </section>
-
-        <section>
           <section>
-            <h1>Multiple calls to Drupal.announce</h1>
+            <h1>Drupal.announce</h1>
+            <aside class="notes">
+              <p>In Drupal 8, we provide a simple way to turn text into speech.</p>
+            </aside>
           </section>
           <section>
+            <pre><code data-trim contenteditable class="javascript">
+  // Pass a string.
+  Drupal.announce('The application has been updated.');
+
+  // Make sure the string is translatable.
+  Drupal.announce(
+    Drupal.t('The application has been updated.')
+  );
+            </code></pre>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h2>Quick successive calls</h2>
             <pre><code data-trim contenteditable class="html">&lt;script&gt;
-// Multiple calls will concatenate.
-Drupal.announce(
-  Drupal.t('Freegan before they sold out polaroid')
-);
-Drupal.announce(
-  Drupal.t('pitchfork letterpress polaroid four loko')
-);
-Drupal.announce(
-  Drupal.t('Cardigan cosby sweater fanny pack')
-);
+// Quick successive calls will concatenate.
+Drupal.announce(Drupal.t('Freegan before they sold out polaroid.'));
+Drupal.announce(Drupal.t('Pitchfork letterpress polaroid four.'));
+Drupal.announce(Drupal.t('Cardigan cosby sweater fanny pack.'));
 &lt;/script&gt;
 
 &lt;div id="drupal-live-announce" class="element-invisible" aria-live="polite" aria-busy="false"&gt;
-Freegan before they sold out polaroid. pitchfork letterpress polaroid four loko. Cardigan cosby sweater fanny pack
+Freegan before they sold out polaroid.
+Pitchfork letterpress polaroid four.
+Cardigan cosby sweater fanny pack.
 &lt;/div&gt;</code></pre>
           </section>
-          <aside class="notes">
-          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>Wait, doesn't this accessibility feature depend on JavaScript?</h1>
+          </section>
+          <section>
+            <h1>Isn't that bad?</h1>
+          </section>
+          <section>
+            <table style="border: 1px solid gray; margin: 0 auto">
+              <thead>
+                <tr>
+                  <th style="width: 60%; border-bottom: 1px solid white">JavaScript enabled</th>
+                  <th style="border-bottom: 1px solid white">Respondents</th>
+                </tr>
+              </thead>
+              <tbody >
+                <tr >
+                  <td>Yes</td>
+                  <td>98.6%</td>
+                </tr>
+                <tr>
+                  <td>No</td>
+                  <td>1.4%</td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="margin-top: 2em" class="sources">
+              <h6>Source</h6>
+              <small><a href="http://webaim.org/projects/screenreadersurvey4/">WebAIM 2012 Survery</a></small>
+            </div>
+            <aside class="notes">
+              <p>The rate of users that employ a screen reader and who have JavaScript enabled is about the same as those who don't a screen reader.</p>
+              <p>http://developer.yahoo.com/blogs/ydn/many-users-javascript-disabled-14121.html</p>
+            </aside>
+          </section>
         </section>
 
         <section>
@@ -410,12 +396,12 @@ Freegan before they sold out polaroid. pitchfork letterpress polaroid four loko.
           </section>
           <section>
             <h2>Yes and yes?</h2>
-            <p class="fragment">Then use Drupal.announce!</p>
+            <p class="fragment">Then use <code>Drupal.announce</code>!</p>
           </section>
           <section>
             <h2>This is what we recommend right now</h2>
-            <p class="fragment">DONT: "Tabbing is constrained"</p>
-            <p class="fragment">DO: "Tabbing is constrained to the Overlay"</p>
+            <p class="fragment">DONT: <q>Tabbing is constrained.</q></p>
+            <p class="fragment">DO: <q>Tabbing is constrained to the Overlay.</q></p>
           </section>
           <aside class="notes">
             <p>This is what we recommend right now. But we're not sure if this is right. Like all interfaces, we need designers to help us!</p>
