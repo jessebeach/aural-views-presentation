@@ -384,7 +384,8 @@ Cardigan cosby sweater fanny pack.
 
         <section>
           <section>
-            <h1>How to implement Drupal.announce</h1>
+            <h1>How-to: announcements</h1>
+            <p>Using <code>Drupal.announce</code>.</p>
           </section>
           <section>
             <h2>Identify a dynamically updated piece of content on the page.</h2>
@@ -492,58 +493,56 @@ Cardigan cosby sweater fanny pack.
 
         <section>
           <section>
-            <h1>Drupal.TabbingManager</h1>
+            <h1>How-to: tabbing management</h1>
+            <p>Using <code>Drupal.TabbingManager</code>.</p>
           </section>
           <section>
-            <h2>Request tabbing constraints from a core API, rather than implementing it in your module.</h2>
-          </section>
-          <section>
-            <pre><code data-trim contenteditable class="javascript">manageTabbing: function (model, isViewing, options) {
+            <h2>Apply tabbing constraint</h2>
+            <p>Using a core API rather than reinventing.</p>
+            <div class="fragment">
+              <pre><code data-trim contenteditable class="javascript">manageTabbing: function () {
   var tabbingContext = this.model.get('tabbingContext');
+
   // Always release an existing tabbing context.
   if (tabbingContext) {
     tabbingContext.release();
-    Drupal.announce(this.options.strings.tabbingReleased);
   }
+
   // Create a new tabbing context when edit mode is enabled.
-  if (!isViewing) {
+  if (!this.model.get('isViewing')) {
     tabbingContext = Drupal.tabbingManager.constrain($('.contextual-toolbar-tab, .contextual'));
     this.model.set('tabbingContext', tabbingContext);
-    this.announceTabbingConstraint();
-    this.announcedOnce = true;
   }
-},</code></pre>
+}</code></pre>
+             <p><small>Example from <code>contextual.module</code>.</small></p>
+            </div>
           </section>
           <section>
-            <h2>Announce the details of the constraint.</h2>
-          </section>
-          <section>
-            <pre><code data-trim contenteditable>announceTabbingConstraint: function () {
-  var strings = this.options.strings;
-  Drupal.announce(Drupal.t(strings.tabbingConstrained, {
-    '@contextualsCount': Drupal.formatPlural(Drupal.contextual.collection.length, strings.contextualsCount.singular, strings.contextualsCount.plural)
-  }));
-  Drupal.announce(strings.pressEsc);
-},</code></pre>
-          </section>
-          <aside class="notes">
-          </aside>
-        </section>
+            <h2>Announce the details of the constraint</h2>
+            <p>Using <code>Drupal.announce</code>.</p>
+            <div class="fragment">
+              <pre><code data-trim contenteditable class="javascript">announceTabbingConstraint: function () {
+  var args =  {
+    '@contextualsCount': Drupal.formatPlural(Drupal.contextual.collection.length, '@count contextual link', '@count contextual links')
+  };
 
-        <section>
-          <section>
-            <h1>Complex tabbing flows</h1>
+  Drupal.announce(Drupal.t('Tabbing is constrained to a set of @contextualsCount and the edit mode toggle.', args));
+  Drupal.announce(Drupal.t('Press the esc key to exit.'));
+},</code></pre>
+              <p><small>Example from <code>contextual.module</code>.</small></p>
+            </div>
           </section>
           <section>
-            <h2>Tabbing contexts can be stacked and popped as a user moves between task flows, even between modules.</h2>
+            <h2>Complex tabbing flows</h2>
+            <p>Tabbing contexts can be stacked and popped as a user moves between task flows, even between modules.</p>
           </section>
           <section>
             <iframe width="100%" height="100%" src="http://www.youtube.com/embed/Znu0ZFB1GA0" frameborder="0" allowfullscreen></iframe>
+            <aside class="notes">
+              <p>[Wim] Let's have another look at how tabbing is constrained when the user enables edit mode and then opens the overlay. Note how the edit mode tabbing constraint is restored after the overlay tabbing constraint context is removed.</p>
+              <p>[Wim] The tabbing constraint contexts do not need to be managed by any module. If your module releases its constraints, but that constraint is overridden and not active, it will not be activated again later.</p>
+            </aside>
           </section>
-          <aside class="notes">
-            <p>[Wim] Let's have another look at how tabbing is constrained when the user enables edit mode and then opens the overlay. Note how the edit mode tabbing constraint is restored after the overlay tabbing constraint context is removed.</p>
-            <p>[Wim] The tabbing constraint contexts do not need to be managed by any module. If your module releases its constraints, but that constraint is overridden and not active, it will not be activated again later.</p>
-          </aside>
         </section>
 
         <section>
