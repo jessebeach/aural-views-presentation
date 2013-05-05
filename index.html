@@ -573,12 +573,6 @@ announceTabbingConstraint: function () {
         </section>
 
         <section>
-          <h1>Visual, Aural and Keyboard Views</h1>
-          <aside class="notes">
-          </aside>
-        </section>
-
-        <section>
           <h1>one <b>model</b>,<br />many <b>views</b></h1>
           <aside class="notes">
             <p>We are using Backbone to formalize modal interactions</p>
@@ -590,11 +584,154 @@ announceTabbingConstraint: function () {
             <h1>Backbonification of Core JS</h1>
           </section>
           <section>
-          !! This is where we talk about Visual and Aural views with code examples!
+            <blockquote>The essential premise at the heart of Backbone has always been to try and <b>discover the minimal set of data-structuring</b> (Models and Collections) and user interface (Views and URLs) primitives that are useful when building web applications with JavaScript.</blockquote>
+            <div class="sources">
+              <small><a href="http://ashkenas.com/backbonejs-1.0/">Jeremy Ashkenas - http://ashkenas.com/backbonejs-1.0/</a></small>
+            </div>
+            <aside class="notes">
+              <p>Why Backbone?</p>
+              <p>No special reason.</p>
+              <p>We don't want to impose a certain highly restrictive structure on JS, nor does Backbone</p>
+            </aside>
           </section>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>Framework doesn't matter</h1>
+          </section>
+          <section>
+            <h1>Separation of concerns matters</h1>
+          </section>
+          <section>
+            <h2>Before Drupal 8</h2>
+            <p class="fragment">event handlers ⟶ rendering <span class="fragment"> ⟶ debug hell</span></p>
+          </section>
+          <section>
+            <h2>Now in Drupal 8</h2>
+            <p class="fragment">events ⟶ state</p>
+            <p class="fragment">state ⟶ rendering</p>
+          </section>
+          <aside class="notes">
+            <p>Most (if not all) JS benefits from its state being updated via events, and then things being rerendered in response to those state changes.</p>
+            <p>No more subtle edge cases.</p>
+            <p>Separation of concerns invites better/completer docs.</p>
+            <p>Pre-Drupal 8 JS is often very complex to evolve, and to somebody who never saw the code, nigh impossible to understand all edge cases.</p>
+            <p>So: Backbone because it's widely used, many docs, concise. It tries to do little!</p>
+            <p>Easy to refactor Backbone code to another framework.</p>
+          </aside>
+        </section>
+
+        <section>
+          !! Insert the "Backbone at a glance" graphic.
+          <aside class="notes">
+            <p>Source: http://kiranb.scripts.mit.edu/backbone-slides/#compenents-diagram</p>
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>Backbone.View render method</h1>
+          </section>
+          <section>
+            <h2>A Backbone View lets us separate Model changes from presentation (visual or aural).</h2>
+            <p class="fragment">Inputs: Keyboard, Mouse, Voice(?), Gesture</p>
+            <p class="fragment">Change: Model updates</p>
+            <p class="fragment">Outputs: Visual View, Aural View</p>
+            <p class="fragment">Adding input and outputs can be done independently because of the common Model they share.</p>
+          </section>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>Breaking the View into modalities</h1>
+          </section>
+          <section>
+            <h2>Model</h2>
+            <p class="fragment">Backbone.Model to represent state; let events modify the model</p>
+          </section>
+          <section>
+            <h2>Visual View</h2>
+            <p class="fragment">Backbone.View to render the model changes to your typical end user (e.g. Unicorn button toggled)</p>
+          </section>
+          <section>
+            <h2>Aural View</h2>
+            <p class="fragment">Backbone.View to render the model changes to the visually impaired end user (e.g. announce that the user has enabled Unicorn Mode)</p>
+          </section>
+          <section>
+            <h1>This ensures both remain in sync, with ease!</h1>
+          </section>
+          <aside class="notes">
+
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>What does the code look like?</h1>
+          </section>
+          <section>
+            <pre><code data-trim contenteditable class="javascript">
+/**
+ * Model and View definitions.
+ */
+Drupal.contextualToolbar = {
+  // The Drupal.contextualToolbar.Model instance.
+  model: null,
+
+  /**
+   * Models the state of the edit mode toggle.
+   */
+  Model: Backbone.Model.extend({
+    defaults: {
+      // Indicates whether the toggle is currently in "view" or "edit" mode.
+      isViewing: true,
+      // Indicates whether the toggle should be visible or hidden.
+      isVisible: false,
+      // The set of elements that can be reached via the tab key when edit mode
+      // is enabled.
+      tabbingContext: null
+    }
+  }),
+
+  /**
+   * Renders the visual view of the edit mode toggle. Listens to mouse & touch.
+   *
+   * Handles edit mode toggle interactions.
+   */
+  VisualView: Backbone.View.extend({
+    // code hidden...
+  }),
+
+  /**
+   * Renders the aural view of the edit mode toggle (i.e.screen reader support).
+   */
+  AuralView: Backbone.View.extend({
+    // code hidden...
+  })
+};
+            </code></pre>
+            <aside class="notes">
+            </aside>
+          </section>
+          <aside class="notes">
+          </aside>
         </section>
 
 
+
+
+        <section>
+          <h2>Best practice is evolving as we development more complex interactions.</h2>
+          <aside class="notes">
+            <p>As Drupal developers, we are all responsible for best practices.</p>
+            <p>since these types of UIs are new (to us at least) we're going to have numerous breakthroughs that replace our previous best practices.</p>
+          </aside>
+        </section>
 
         <section>
           <img src="images/closer.png" />
