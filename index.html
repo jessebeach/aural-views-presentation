@@ -310,7 +310,7 @@
             <p class="fragment">Describes an HTML element that reads its contents when those contents are altered.</p>
           </section>
           <section>
-            <pre><code data-trim contenteditable>
+            <pre><code data-trim contenteditable class="javascript">
 <div aria-live="polite" class="element-hidden">
   some text to speak
 </div>
@@ -322,18 +322,14 @@
         </section>
 
         <section>
-          <img src="images/closer.png" />
-        </section>
-
-        <section>
           <h1>Drupal.announce</h1>
           <aside class="notes">
-
+            <p>In Drupal 8, we provide a simple way to turn text into speech.</p>
           </aside>
         </section>
 
         <section>
-          <pre><code data-trim contenteditable>
+          <pre><code data-trim contenteditable class="javascript">
 // Pass a string.
 Drupal.announce('The application has been updated.');
 
@@ -345,6 +341,167 @@ Drupal.announce(
           <aside class="notes">
 
           </aside>
+        </section>
+
+        <section>
+          <section><h1>Wait, doesn't this accessibility feature depend on JavaScript?</h1></section>
+          <section><h1>Isn't that bad?</h1></section>
+          <aside class="notes">
+
+          </aside>
+        </section>
+
+        <section>
+          <table>
+            <thead>
+              <tr>
+                <th>JavaScript Enabled</th>
+                <th>% of Respondents</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Yes</td>
+                <td>98.6%</td>
+              </tr>
+              <tr>
+                <td>No</td>
+                <td>1.4%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="sources">
+            <small><a href="http://webaim.org/projects/screenreadersurvey4/">WebAIM 2012 Survery</a></small>
+          </div>
+          <aside class="notes">
+            <p>The rate of users that employ a screen reader and who have JavaScript enabled is about the same as those who don't a screen reader.</p>
+            <p>http://developer.yahoo.com/blogs/ydn/many-users-javascript-disabled-14121.html</p>
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>Multiple calls to Drupal.announce</h1>
+          </section>
+          <section>
+            <pre><code data-trim contenteditable class="html">
+<script>
+// Multiple calls will concatenate.
+Drupal.announce(
+  Drupal.t('Freegan before they sold out polaroid')
+);
+Drupal.announce(
+  Drupal.t('pitchfork letterpress polaroid four loko')
+);
+Drupal.announce(
+  Drupal.t('Cardigan cosby sweater fanny pack')
+);
+</script>
+
+<div id="drupal-live-announce" class="element-invisible" aria-live="polite" aria-busy="false">
+Freegan before they sold out polaroid. pitchfork letterpress polaroid four loko. Cardigan cosby sweater fanny pack
+</div>
+            </code></pre>
+          </section>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>How to implement Drupal.announce</h1>
+          </section>
+          <section>
+            <h2>Identify a dynamically updated piece of content on the page.</h2>
+          </section>
+          <section>
+            <h2>And then ask</h2>
+            <p class="fragment">Is this content relevant to he user?</p>
+            <p class="fragment">Should the user be aware?</p>
+          </section>
+          <section>
+            <h2>Yes and yes?</h2>
+            <p class="fragment">Then use Drupal.announce!</p>
+          </section>
+          <section>
+            <h2>This is what we recommend right now</h2>
+            <p class="fragment">DONT: "Tabbing is constrained"</p>
+            <p class="fragment">DO: "Tabbing is constrained to the Overlay"</p>
+          </section>
+          <aside class="notes">
+            <p>This is what we recommend right now. But we're not sure if this is right. Like all interfaces, we need designers to help us!</p>
+            <p>We can learn from Voice Interface design from telephony.</p>
+            <p>Designing for voice and sound is not new, but it is new to many web developers and designers.</p>
+          </aside>
+        </section>
+
+        <section>
+          <h1>Not familiar with using a screen reader?</h1>
+          <p class="fragment">Install devel_a11y</p>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h1>guide the <b>flow</b></h1>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>Tabbing management</h1>
+          </section>
+          <section>
+            <h2>Constrain tabbable elements to just those necessary to complete a task.</h2>
+          </section>
+          <section>
+            !! Need an image of Overlay tabbing constrained.
+          </section>
+          <section>
+            !! Need an image of Edit with tabbing constrained.
+          </section>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h1>Who is responsible for tabbing management?</h1>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h1>The developer!</h1>
+          </section>
+          <section>
+            <h2>(no really)</h2>
+          </section>
+          <section>
+            <blockquote>Depending upon the action to be performed by the dialog, the object with focus before the dialog box is opened should be saved. This will allow restoring focus to this element when the dialog box is closed.</blockquote>
+            <div class="sources">
+              <small><a href="http://www.w3.org/TR/wai-aria-practices/#modal_dialog">http://www.w3.org/TR/wai-aria-practices/#modal_dialog</a></small>
+            </div>
+          </section>
+          <aside class="notes">
+          </aside>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section>
+          <img src="images/closer.png" />
         </section>
 
       </div>
