@@ -310,11 +310,9 @@
             <p class="fragment">Describes an HTML element that reads its contents when those contents are altered.</p>
           </section>
           <section>
-            <pre><code data-trim contenteditable class="javascript">
-<div aria-live="polite" class="element-hidden">
+            <pre><code data-trim contenteditable class="html">&lt;div aria-live="polite" class="element-hidden"&gt;
   some text to speak
-</div>
-            </code></pre>
+&lt;/div&gt;</code></pre>
           </section>
           <aside class="notes">
             <p>Describes an HTML element that reads its contents when those contents are altered.</p>
@@ -384,8 +382,7 @@ Drupal.announce(
             <h1>Multiple calls to Drupal.announce</h1>
           </section>
           <section>
-            <pre><code data-trim contenteditable class="html">
-<script>
+            <pre><code data-trim contenteditable class="html">&lt;script&gt;
 // Multiple calls will concatenate.
 Drupal.announce(
   Drupal.t('Freegan before they sold out polaroid')
@@ -396,12 +393,11 @@ Drupal.announce(
 Drupal.announce(
   Drupal.t('Cardigan cosby sweater fanny pack')
 );
-</script>
+&lt;/script&gt;
 
-<div id="drupal-live-announce" class="element-invisible" aria-live="polite" aria-busy="false">
+&lt;div id="drupal-live-announce" class="element-invisible" aria-live="polite" aria-busy="false"&gt;
 Freegan before they sold out polaroid. pitchfork letterpress polaroid four loko. Cardigan cosby sweater fanny pack
-</div>
-            </code></pre>
+&lt;/div&gt;</code></pre>
           </section>
           <aside class="notes">
           </aside>
@@ -512,8 +508,7 @@ Freegan before they sold out polaroid. pitchfork letterpress polaroid four loko.
             <h2>Request tabbing constraints from a core API, rather than implementing it in your module.</h2>
           </section>
           <section>
-            <pre><code data-trim contenteditable class="javascript">
-manageTabbing: function (model, isViewing, options) {
+            <pre><code data-trim contenteditable class="javascript">manageTabbing: function (model, isViewing, options) {
   var tabbingContext = this.model.get('tabbingContext');
   // Always release an existing tabbing context.
   if (tabbingContext) {
@@ -527,22 +522,19 @@ manageTabbing: function (model, isViewing, options) {
     this.announceTabbingConstraint();
     this.announcedOnce = true;
   }
-},
-            </code></pre>
+},</code></pre>
           </section>
           <section>
             <h2>Announce the details of the constraint.</h2>
           </section>
           <section>
-            <pre><code data-trim contenteditable>
-announceTabbingConstraint: function () {
+            <pre><code data-trim contenteditable>announceTabbingConstraint: function () {
   var strings = this.options.strings;
   Drupal.announce(Drupal.t(strings.tabbingConstrained, {
     '@contextualsCount': Drupal.formatPlural(Drupal.contextual.collection.length, strings.contextualsCount.singular, strings.contextualsCount.plural)
   }));
   Drupal.announce(strings.pressEsc);
-},
-            </code></pre>
+},</code></pre>
           </section>
           <aside class="notes">
           </aside>
@@ -676,46 +668,24 @@ announceTabbingConstraint: function () {
             <h1>What does the code look like?</h1>
           </section>
           <section>
-            <pre><code data-trim contenteditable class="javascript">
-/**
- * Model and View definitions.
- */
-Drupal.contextualToolbar = {
-  // The Drupal.contextualToolbar.Model instance.
-  model: null,
+            <pre><code data-trim contenteditable class="javascript">Drupal.contextualToolbar = {
+  Model: Backbone.Model.extend({ /* … */ }),
 
   /**
-   * Models the state of the edit mode toggle.
+   * Renders the visual view. Listens to mouse &amp; touch.
    */
-  Model: Backbone.Model.extend({
-    defaults: {
-      // Indicates whether the toggle is currently in "view" or "edit" mode.
-      isViewing: true,
-      // Indicates whether the toggle should be visible or hidden.
-      isVisible: false,
-      // The set of elements that can be reached via the tab key when edit mode
-      // is enabled.
-      tabbingContext: null
-    }
-  }),
+  VisualView: Backbone.View.extend({ /* … */ }),
 
   /**
-   * Renders the visual view of the edit mode toggle. Listens to mouse & touch.
-   *
-   * Handles edit mode toggle interactions.
+   * Renders the aural view. (i.e. screen reader support).
    */
-  VisualView: Backbone.View.extend({
-    // code hidden...
-  }),
+  AuralView: Backbone.View.extend({ /* … */ }),
 
   /**
-   * Renders the aural view of the edit mode toggle (i.e.screen reader support).
+   * Listens to keyboard.
    */
-  AuralView: Backbone.View.extend({
-    // code hidden...
-  })
-};
-            </code></pre>
+  KeyboardView: Backbone.View.extend({ /* … */ })
+}</code></pre>
             <aside class="notes">
             </aside>
           </section>
