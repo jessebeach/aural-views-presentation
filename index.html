@@ -648,67 +648,111 @@ Cardigan cosby sweater fanny pack.
 
         <section>
           <section>
-            <h1>Breaking the View into modalities</h1>
+            <h1>How-to: Backbone.js for better accessibility</h1>
           </section>
           <section>
-            <h2>Model</h2>
-            <p class="fragment">Backbone.Model to represent state; let events modify the model</p>
-          </section>
-          <section>
-            <h2>Visual View</h2>
-            <p class="fragment">Backbone.View to render the model changes to your typical end user (e.g. Unicorn button toggled)</p>
-          </section>
-          <section>
-            <h2>Aural View</h2>
-            <p class="fragment">Backbone.View to render the model changes to the visually impaired end user (e.g. announce that the user has enabled Unicorn Mode)</p>
-          </section>
-          <section>
-            <h1>This ensures both remain in sync, with ease!</h1>
-          </section>
-          <aside class="notes">
-
-          </aside>
-        </section>
-
-        <section>
-          <section>
-            <h1>What does the code look like?</h1>
-          </section>
-          <section>
-            <pre><code data-trim contenteditable class="javascript">Drupal.contextualToolbar = {
-  Model: Backbone.Model.extend({ /* … */ }),
-
-  /**
-   * Renders the visual view. Listens to mouse &amp; touch.
-   */
-  VisualView: Backbone.View.extend({ /* … */ }),
-
-  /**
-   * Renders the aural view. (i.e. screen reader support).
-   */
-  AuralView: Backbone.View.extend({ /* … */ }),
-
-  /**
-   * Listens to keyboard.
-   */
-  KeyboardView: Backbone.View.extend({ /* … */ })
-}</code></pre>
+            <img src="images/backbone.png" alt="A schema explaning the different components of Backbone. Relevant parts to us: data &amp; state are modeled in Backbone Models. Backbone Models of the same type may be grouped in Backbone Collections if that is useful for the use case. Backbone Models are connected to Backbone Views via model event bindings, so that Backbone Views are able to update themselves whenver the data/state changes. A View is typically bound to a DOM element, within which it renders itself. " />
             <aside class="notes">
+              <p>Source: http://kiranb.scripts.mit.edu/backbone-slides/#compenents-diagram</p>
+              <p>Note that in Backbone.js, the View is a combination of a View and Controller. The Models are intentionally kept dumb, to make it easy to hook up new Views. Since the DOM also combines rendering (HTML elements rendered in a certain way) and event handling (DOM event handling), and the View is the connection to the DOM, this feels natural.<br />
+              However, if you prefer a full separation, then it's entirely possible to have Views that are solely listening for events and updating the bound Model, and separate Views that are responsible for rendering.</p>
             </aside>
           </section>
-          <aside class="notes">
-          </aside>
-        </section>
-
-
-
-
-        <section>
-          <h2>Best practice is evolving as we development more complex interactions.</h2>
-          <aside class="notes">
-            <p>As Drupal developers, we are all responsible for best practices.</p>
-            <p>since these types of UIs are new (to us at least) we're going to have numerous breakthroughs that replace our previous best practices.</p>
-          </aside>
+          <section>
+            <h2>Step 1: create a model</h2>
+            <p>Contains state, is stupid. Views update it.</p>
+            <div class="fragment">
+              <pre><code class="javascript">Drupal.contextual.Model = Backbone.Model.extend({
+  defaults: {
+    // Whether the toggle is currently in "view" or "edit" mode.
+    isViewing: true,
+    // Whether the toggle should be visible or hidden.
+    isVisible: false,
+    // A TabbingContext object as returned by Drupal.TabbingManager:
+    // the set of tabbable elements when edit mode is enabled.
+    tabbingContext: null
+  }
+});
+</code></pre>
+              <p><small>Example from <code>contextual.module</code>.</small></p>
+            </div>
+          </section>
+          <section>
+            <h2>Step 2: create a visual view</h2>
+            <p>99.9% of sites need visual output &amp; mouse + touch input.</p>
+            <div class="fragment">
+              <pre><code class="javascript">Drupal.contextual.VisualView = Backbone.View.extend({
+  events: {
+    'click': function () {
+      this.model.set('isViewing', !this.model.get('isViewing')),
+    }
+  },
+  initialize: function () {
+    this.model.on('change', this.render, this);
+  },
+  render: function () {
+    var $el = this.el;
+    var m = this.model;
+    $el.toggleClass('element-hidden', !m.get('isVisible'));
+    $el.find('button').toggleClass('active', !m.get('isViewing'));
+    return this;
+  }
+});
+</code></pre>
+              <p><small>Example from <code>contextual.module</code>.</small></p>
+            </div>
+            <aside class="notes">
+              <p>As a general rule: a Backbone View must receive two things: a Backbone Model and its "root" DOM element.</p>
+              <p>This is our current advised best-practice: create a Visual View that covers the needs of >90% of the users — being visual output and mouse + touch handling. Then the developer may add a Keyboard View to support keyboard navigation. And finally, the developer may add an Aural View, to provide auditive feedback via Drupal.announce and set the appropriate ARIA attributes.</p>
+              <p>In other words: we don't want to force every developer to create an Aural View. We just want to make it as easy as possible to support it.</p>
+            </aside>
+          </section>
+          <section>
+            <h2>Step 3: create a keyboard view</h2>
+            <p>For screen reader users &amp; power users: keyboard input.</p>
+            <div class="fragment">
+              <pre><code class="javascript">Drupal.contextual.KeyboardView = Backbone.View.extend({
+  // …
+});</code></pre>
+              <p style="margin-top: 3em; font-style: italic">Unnecessary here: the <code>click</code> event in the <code>VisualView</code> already works with keyboard input. We don't need <code>focus</code> or <code>blur</code>.</p>
+            </div>
+          </section>
+          <section>
+            <h2>Step 4: create an aural view</h2>
+            <p>For screen reader users: aural output.</small></p>
+            <div class="fragment">
+              <pre><code class="javascript">Drupal.contextual.AuralView = Backbone.View.extend({
+  initialize: function () {
+    this.model.on('change', this.render, this);
+    this.model.on('change:isViewing', this.manageTabbing, this);
+  },
+  render: function () {
+    var $el = this.el;
+    var m = this.model;
+    $el.find('button').attr('aria-pressed', !m.get('isViewing'));
+    return this;
+  },
+  manageTabbing: function () {
+    // See TabbingManager example.
+    Drupal.announce('&lt;a relevant, explanatory message&gt;');
+  }
+});
+</code></pre>
+              <p><small>Example from <code>contextual.module</code>.</small></p>
+            </div>
+          </section>
+          <section>
+            <h2>All done!</h2>
+            <p>Everything remains in sync!</p>
+            <p>Just like that.</p>
+          </section>
+          <section>
+            <h2>Best practice is evolving as we development more complex interactions.</h2>
+            <aside class="notes">
+              <p>As Drupal developers, we are all responsible for best practices.</p>
+              <p>since these types of UIs are new (to us at least) we're going to have numerous breakthroughs that replace our previous best practices.</p>
+            </aside>
+          </section>
         </section>
 
         <section>
