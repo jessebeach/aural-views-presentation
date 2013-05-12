@@ -1,3 +1,6 @@
 [submodule "src/reveal"]
 	path = src/reveal
 	url = git://github.com/hakimel/reveal.js.git
+[submodule "src/fullscreen-img"]
+	path = src/fullscreen-img
+	url = git://github.com/regisb/reveal.js-fullscreen-img.git
