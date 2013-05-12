@@ -147,6 +147,7 @@
             <h1>Aural user interfaces</h1>
             <aside class="notes">
               <p>Our work regarding Drupal 8 accessibility has focused primarily on enabling aural user interfaces.</p>
+              <p>Aural refers to the sense of hearing, just as visual refers to the sense of sight.</p>
             </aside>
           </section>
           <section>
@@ -183,7 +184,23 @@
             <aside class="notes">
               <p>This video is meant to provide a stark example of what a complex interface interaction feels like when we remove the visual component.</p>
               <p>NOTE: We're picking on the Tour module. It's meant to prove a point. Lots of aural UI in Drupal needs work and I had to pick something to illustrate this.</p>
+              <p>Now that example was intentionally long and intentionally without visuals to provide a really stark illustration of how quickly one can become lost in an interface; lose a sense of what the original intent was and where the interaction ends.</p>
             </aside>
+          </section>
+
+          <section>
+            <h2>Tour module tooltip markup</h2>
+            <pre><code data-trim class="html">
+&lt;div data-index="0"&gt;
+  &lt;div role="dialog" aria-labelledby="tour-tip-views-ui-displays-label" aria-describedby="tour-tip-views-ui-displays-contents"&gt;
+    &lt;h2 id="tour-tip-views-ui-displays-label"&gt;Displays&lt;/h2&gt;
+    &lt;p id="tour-tip-views-ui-displays-contents"&gt;A view can consist of multiple displays.&lt;/p&gt;
+    &lt;div class="tour-progress"&gt;1 of 10&lt;/div&gt;
+    &lt;a href="#" class="joyride-next-tip"&gt;Next&lt;/a&gt;
+    &lt;a href="#close" class="joyride-close-tip"&gt;X&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+            </code></pre>
           </section>
 
           <section>
