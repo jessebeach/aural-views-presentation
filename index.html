@@ -42,6 +42,7 @@
           <img src="images/opener.png" />
         </section>
 
+        <!-- Introduction -->
         <section>
           <h1>Drupal Speaks</h1>
           <h3>Aural user interfaces and how we're making Drupal 8 the most accessible CMS in the world</h3>
@@ -66,6 +67,8 @@
             <p>[Wim] We find inspiration through interaction and that is what a rich UI does, it inspires and encourages.</p>
           </aside>
         </section>
+
+        <!-- Overview of accessibility in Drupal -->
         <section>
           <section>
             <h1>Isn't Drupal accessible already?</h1>
@@ -134,13 +137,18 @@
             <aside class="notes">
               <p>Building accessible UIs takes effort. As web workers, we already have so much to think about. It's like being in a pillow fight. Everyone means well; they want to have fun. But it can get chaotic and messy very quickly.</p>
               <p>What we have tried to do in our work is provide tools and patterns in code, for module and theme developers. We also want to further expand the awareness of universal access among web developer. To show them that they can make accessible UIs a part of their daily workflow.</p>
-              <p>So let's move from our brief introduction to accessibility in Drupal to the work currently underway to make it even better.</p>
-              <p>[Wim] Modern UIs are complex. As we introduce just-in-time information and dynamically updating pages, we also introduce new design patterns to express to the user that their page contents have changed: spinner icons, quick flashes of color, shifting boxes, fade in effects. Almost exclusively, these indicators are visual. While we were helping to improve authoring experience tools for Drupal 8, we realized that Drupal is, too, evolving into a complex and dynamic front end application. That we need to express to the user when and how their interface has updated. And that we need to do this within Drupal's guidelines. We can't only express updates visually because for users who are blind, our UIs are frustratingly silent about what's going on.</p>
             </aside>
           </section>
         </section>
 
+        <!-- Aural user interfaces and why we need to consider them -->
         <section>
+          <section>
+            <h1>Aural user interfaces</h1>
+            <aside class="notes">
+              <p>Our work regarding Drupal 8 accessibility has focused primarily on enabling aural user interfaces.</p>
+            </aside>
+          </section>
           <section>
             <h1>Drupal Speaks?</h1>
             <aside class="notes">
@@ -162,11 +170,9 @@
               <p>In this example, we'll see me using the tab key to navigate several interfaces within a typical Drupal page.</p>
             </aside>
           </section>
-        </section>
 
-        <section>
           <section>
-            <h1>Why consider speech?</h1>
+            <h1>Why consider speech output?</h1>
             <h2>Isn't semantic HTML enough?</h2>
             <aside class="notes">
             </aside>
@@ -175,12 +181,11 @@
           <section>
             <iframe width="100%" height="100%" src="http://www.youtube.com/embed/D_HqFh63vGg" frameborder="0" allowfullscreen></iframe>
             <aside class="notes">
-              <p>note: We need to introduce this video by profusely apologizing that we're picking on the Tour module. It's meant to prove a point. Lots of aural UI in Drupal needs work and I had to pick something to illustrate this.</p>
+              <p>This video is meant to provide a stark example of what a complex interface interaction feels like when we remove the visual component.</p>
+              <p>NOTE: We're picking on the Tour module. It's meant to prove a point. Lots of aural UI in Drupal needs work and I had to pick something to illustrate this.</p>
             </aside>
           </section>
-        </section>
 
-        <section>
           <section>
             <h1>The accessible-to-usable scale</h1>
           </section>
@@ -190,24 +195,24 @@
               <p>Note: [Wim] Chart.js does not support labels within pie charts :( How do you want to do this?</p>
             </aside>
           </section>
-        </section>
 
-        <section>
-          !! We need the pie chart on side 20 here.
-          <aside class="notes">
-            <p>[Jesse]Most user interface design and responsive development focuses on two aspects of this universal access pie.</p>
-            <ol>
-              <li>Hearing</li>
-              <li>Sight</li>
-              <li>Color contrast</li>
-              <li>Component size</li>
-              <li>Interaction dexterity</li>
-              <li>Cognitive ability</li>
-              <li>Input method (mouse, touch, keyboard, voice)</li>
-              <li>Device capability (screen size, processing speed, bandwidth)</li>
-            </ol>
-            <p>Note: [Wim] Chart.js does not support labels within pie charts :( How do you want to do this?</p>
-          </aside>
+          <section>
+            !! We need the pie chart on slide 20 here.
+            <aside class="notes">
+              <p>[Jesse]Most user interface design and responsive development focuses on two aspects of this universal access pie.</p>
+              <ol>
+                <li>Hearing</li>
+                <li>Sight</li>
+                <li>Color contrast</li>
+                <li>Component size</li>
+                <li>Interaction dexterity</li>
+                <li>Cognitive ability</li>
+                <li>Input method (mouse, touch, keyboard, voice)</li>
+                <li>Device capability (screen size, processing speed, bandwidth)</li>
+              </ol>
+              <p>Note: [Wim] Chart.js does not support labels within pie charts :( How do you want to do this?</p>
+            </aside>
+          </section>
         </section>
 
         <section>
@@ -268,6 +273,10 @@
           <section>
             <h1>ARIA</h1>
             <p class="fragment roll-in"><i>Accessible Rich Internet Applications</i></p>
+            <aside class="notes">
+              <p>So let's move from our brief introduction to accessibility in Drupal to the work currently underway to make it even better.</p>
+              <p>[Wim] Modern UIs are complex. As we introduce just-in-time information and dynamically updating pages, we also introduce new design patterns to express to the user that their page contents have changed: spinner icons, quick flashes of color, shifting boxes, fade in effects. Almost exclusively, these indicators are visual. While we were helping to improve authoring experience tools for Drupal 8, we realized that Drupal is, too, evolving into a complex and dynamic front end application. That we need to express to the user when and how their interface has updated. And that we need to do this within Drupal's guidelines. We can't only express updates visually because for users who are blind, our UIs are frustratingly silent about what's going on.</p>
+            </aside>
           </section>
           <section>
             <h2>We use ARIA attributes to represent through markup what you are accustomed to representing through visual language.</h2>
