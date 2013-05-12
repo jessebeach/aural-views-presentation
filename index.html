@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="src/reveal/css/reveal.min.css">
+    <link rel="stylesheet" href="src/fullscreen-img/fullscreen-img.css">
     <link rel="stylesheet" href="src/reveal/css/theme/default.css" id="theme">
 
     <!-- For syntax highlighting -->
@@ -110,7 +111,8 @@
             <p class="fragment roll-in">+needs color accessibility review</p>
             <p class="fragment roll-in">+a11y</p>
             <aside class="notes">
-              <p>[Jesse] We have accessibility tags for issue queues</p>
+              <p>[Jesse] We have accessibility tags for issue queues.</p>
+              <p>These tags are important as markers for issue reviewers to let them find issues that require accessibility work or testing.</p>
             </aside>
           </section>
           <section>
@@ -128,19 +130,21 @@
               [Jesse] We have an accessibility pledge for module maintainers.
             </aside>
           </section>
-        </section>
-
-        <section>
-          !! Need an image of a complex scene
-          <aside class="notes">
-            <p>[Wim] Modern UIs are complex. As we introduce just-in-time information and dynamically updating pages, we also introduce new design patterns to express to the user that their page contents have changed: spinner icons, quick flashes of color, shifting boxes, fade in effects. Almost exclusively, these indicators are visual. While we were helping to improve authoring experience tools for Drupal 8, we realized that Drupal is, too, evolving into a complex and dynamic front end application. That we need to express to the user when and how their interface has updated. And that we need to do this within Drupal's guidelines. We can't only express updates visually because for users who are blind, our UIs are frustratingly silent about what's going on.</p>
-          </aside>
+          <section fullscreen-img="images/pillow-fight.jpg" data-source="http://penningpanda.wordpress.com/2010/03/30/international-pillow-fight-day/">
+            <aside class="notes">
+              <p>Building accessible UIs takes effort. As web workers, we already have so much to think about. It's like being in a pillow fight. Everyone means well; they want to have fun. But it can get chaotic and messy very quickly.</p>
+              <p>What we have tried to do in our work is provide tools and patterns in code, for module and theme developers. We also want to further expand the awareness of universal access among web developer. To show them that they can make accessible UIs a part of their daily workflow.</p>
+              <p>So let's move from our brief introduction to accessibility in Drupal to the work currently underway to make it even better.</p>
+              <p>[Wim] Modern UIs are complex. As we introduce just-in-time information and dynamically updating pages, we also introduce new design patterns to express to the user that their page contents have changed: spinner icons, quick flashes of color, shifting boxes, fade in effects. Almost exclusively, these indicators are visual. While we were helping to improve authoring experience tools for Drupal 8, we realized that Drupal is, too, evolving into a complex and dynamic front end application. That we need to express to the user when and how their interface has updated. And that we need to do this within Drupal's guidelines. We can't only express updates visually because for users who are blind, our UIs are frustratingly silent about what's going on.</p>
+            </aside>
+          </section>
         </section>
 
         <section>
           <section>
             <h1>Drupal Speaks?</h1>
             <aside class="notes">
+              <p>Yes, Drupal speaks!</p>
             </aside>
           </section>
 
@@ -148,13 +152,14 @@
             <h1>You betcha!</h1>
             <h2>Let’s have a listen</h2>
             <aside class="notes">
+              <p>Well, to be more precise, screen reading software speaks.</p>
             </aside>
           </section>
 
           <section>
             <iframe width="100%" height="100%" src="http://www.youtube.com/embed/-GlDpNRBU-8" frameborder="0" allowfullscreen></iframe>
             <aside class="notes">
-
+              <p>In this example, we'll see me using the tab key to navigate several interfaces within a typical Drupal page.</p>
             </aside>
           </section>
         </section>
@@ -794,6 +799,7 @@ Cardigan cosby sweater fanny pack.
               <li>http://previousnext.com.au/blog/so-you-want-be-accessible</li>
               <li>http://squizlabs.github.io/HTML_CodeSniffer/</li>
               <li>http://webaim.org/projects/screenreadersurvey4/</li>
+              <li><a href="http://penningpanda.wordpress.com/2010/03/30/international-pillow-fight-day/">Pillow fight</a></li>
             </ol>
           </section>
           <aside class="notes">
@@ -835,6 +841,7 @@ Cardigan cosby sweater fanny pack.
 
         // Optional libraries used to extend on reveal.js
         dependencies: [
+          { src: 'src/fullscreen-img/fullscreen-img.js'},
           { src: 'src/reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
           { src: 'src/reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
           { src: 'src/reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
