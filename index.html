@@ -294,7 +294,7 @@
         <section>
           <section>
             <h1>ARIA</h1>
-            <p class="fragment roll-in"><i>Accessible Rich Internet Applications</i></p>
+            <h2>Accessible Rich Internet Applications</h2>
             <aside class="notes">
               <p>So let's move from our brief introduction to accessibility in Drupal to the work currently underway to make it even better.</p>
               <p>[Wim] Modern UIs are complex. As we introduce just-in-time information and dynamically updating pages, we also introduce new design patterns to express to the user that their page contents have changed: spinner icons, quick flashes of color, shifting boxes, fade in effects. Almost exclusively, these indicators are visual. While we were helping to improve authoring experience tools for Drupal 8, we realized that Drupal is, too, evolving into a complex and dynamic front end application. That we need to express to the user when and how their interface has updated. And that we need to do this within Drupal's guidelines. We can't only express updates visually because for users who are blind, our UIs are frustratingly silent about what's going on.</p>
@@ -354,7 +354,8 @@
 
         <section>
           <section>
-            <h1>Drupal.announce</h1>
+            <h1>Express changes aurally</h1>
+            <h2>Drupal.announce</h2>
             <aside class="notes">
               <p>In Drupal 8, we provide a simple way to turn text into speech.</p>
               <p>The Drupal.announce function was first brought up at the Drupal Camp Toronto accessibility sprint in the fall of 2012.</p>
@@ -405,9 +406,7 @@ Pitchfork letterpress polaroid four.
 Cardigan cosby sweater fanny pack.
 &lt;/div&gt;</code></pre>
           </section>
-        </section>
 
-        <section>
           <section>
             <h1>Wait, doesn't this accessibility feature depend on JavaScript?</h1>
             <aside class="notes">
@@ -479,8 +478,8 @@ Cardigan cosby sweater fanny pack.
 
         <section>
           <section>
-            <h1>Tabbing management</h1>
-            <h2>Guide the flow</h2>
+            <h1>Guide the flow</h1>
+            <h2>Drupal.TabbingManager</h2>
           </section>
           <section>
             <h2>Constrain tabbable elements to just those necessary to complete a task.</h2>
@@ -523,9 +522,7 @@ Cardigan cosby sweater fanny pack.
               <p>[Jesse] What we want to avoid is putting the responsibility of tabbing management on every individual contributed module that might need it.</p>
             </aside>
           </section>
-        </section>
 
-        <section>
           <section>
             <h1>How-to: tabbing management</h1>
             <p>Using <code>Drupal.TabbingManager</code>.</p>
@@ -580,22 +577,16 @@ Cardigan cosby sweater fanny pack.
         </section>
 
         <section>
-          <h1>Embrace <b>modalities</b></h1>
-          <aside class="notes">
-            <p>A modality refers to the medium that we use to access information. That medium may be visual, it may be aural; it might be through touch as well.</p>
-            <p>We can account for modalities in our code. Indeed we've begun to do this in Drupal Core.</p>
-          </aside>
-          <!--
-            [Wim] This is still too vague? I think the "better keyboard nav = better for power users" argument slide was a good one, so maybe that should be reintroduced here?
-          -->
-        </section>
-
-        <section>
           <section>
-            <h1>one <em>model</em>,<br />many <em>views</em></h1>
+            <h1>Embrace <b>modalities</b></h1>
+            <h2>Backbone.js</h2>
             <aside class="notes">
-              <p>We are using Backbone to formalize modal interactions</p>
+              <p>A modality refers to the medium that we use to access information. That medium may be visual, it may be aural; it might be through touch as well.</p>
+              <p>We can account for modalities in our code. Indeed we've begun to do this in Drupal Core.</p>
             </aside>
+            <!--
+              [Wim] This is still too vague? I think the "better keyboard nav = better for power users" argument slide was a good one, so maybe that should be reintroduced here?
+            -->
           </section>
           <section>
             <h2>Backbonification of Core JS</h2>
@@ -618,6 +609,12 @@ Cardigan cosby sweater fanny pack.
                 <li>[Wim] To: well-structured JS, with a few very basic structures, we use Backbone's structures</li>
                 <li>[Wim] So, question: "Why Backbone.js?".</li>
               </ul>
+            </aside>
+          </section>
+          <section>
+            <h1>one <em>model</em>,<br />many <em>views</em></h1>
+            <aside class="notes">
+              <p>We are using Backbone to formalize modal interactions</p>
             </aside>
           </section>
           <section>
@@ -678,39 +675,6 @@ Cardigan cosby sweater fanny pack.
               <p>[Wim] This is pretty much the same slide as before — now the reader/attendee should be able to understand better why this is so much better.</p>
             </aside>
           </section>
-        </section>
-
-        <section>
-          <section>
-            <h1>Not familiar with using a screen reader?</h1>
-          </section>
-          <section>
-            <h1>Want to know if tabbing is constrained?</h1>
-          </section>
-          <section>
-            <h2>Install the "Devel accessibility" module</h2>
-            <p><a href="http://drupal.org/project/devel_a11y" title="Link to the Devel accessibility module's project page on drupal.org.">http://drupal.org/project/devel_a11y</a></p>
-            <aside class="notes">
-              <p>This module exposes the functionality of Drupal.announce through the window.console object. It also shows us tabbing constraints, someting we'll talk more about shortly.</p>
-            </aside>
-          </section>
-          <section>
-            <h2><code>console.log</code> announcements</h2>
-            <img src="images/devel_a11y/drupal.announce.log.png" alt="Screenshot of devel_a11y's ability to log announcements via Drupal.announce to the browser's console." />
-            <aside class="notes">
-              <p>[Wim] It supports logging <code>Drupal.announce</code>ments.</p>
-            </aside>
-          </section>
-          <section>
-            <h2>Visualize tabbing constraints</h2>
-            <img src="images/devel_a11y/tabbingmanager.visualize.png" alt="Screenshot of devel_a11y's ability to visualize tabbing constraints defined by the TabbingManager." />
-            <aside class="notes">
-              <p>[Wim] And it supports both logging and visualizing <code>Drupal.TabbingManager</code> tabbing constraints. A CSS animation occurs whenever the tabbing constraints change, tabbable elements have a red box shadow, the currently focused tabbable element has a green box shadow.</p>
-            </aside>
-          </section>
-        </section>
-
-        <section>
           <section>
             <h1>How-to: Backbone.js for better accessibility</h1>
           </section>
@@ -821,8 +785,42 @@ Cardigan cosby sweater fanny pack.
 
         <section>
           <section>
-            <h1>a UI is <b>sight</b>, and <b>sound</b> and <b>touch</b></h1>
+            <h1>devel_a11y module</h1>
+          </section>
+          <section>
+            <h2>Not familiar with using a screen reader?</h2>
+          </section>
+          <section>
+            <h2>Want to know if tabbing is constrained?</h2>
+          </section>
+          <section>
+            <h2>Install the "Devel accessibility" module</h2>
+            <p><a href="http://drupal.org/project/devel_a11y" title="Link to the Devel accessibility module's project page on drupal.org.">http://drupal.org/project/devel_a11y</a></p>
             <aside class="notes">
+              <p>This module exposes the functionality of Drupal.announce through the window.console object. It also shows us tabbing constraints, someting we'll talk more about shortly.</p>
+            </aside>
+          </section>
+          <section>
+            <h2><code>console.log</code> announcements</h2>
+            <img src="images/devel_a11y/drupal.announce.log.png" alt="Screenshot of devel_a11y's ability to log announcements via Drupal.announce to the browser's console." />
+            <aside class="notes">
+              <p>[Wim] It supports logging <code>Drupal.announce</code>ments.</p>
+            </aside>
+          </section>
+          <section>
+            <h2>Visualize tabbing constraints</h2>
+            <img src="images/devel_a11y/tabbingmanager.visualize.png" alt="Screenshot of devel_a11y's ability to visualize tabbing constraints defined by the TabbingManager." />
+            <aside class="notes">
+              <p>[Wim] And it supports both logging and visualizing <code>Drupal.TabbingManager</code> tabbing constraints. A CSS animation occurs whenever the tabbing constraints change, tabbable elements have a red box shadow, the currently focused tabbable element has a green box shadow.</p>
+            </aside>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>a UI is <i>sight</i>, and <i>sound</i> and <i>touch</i></h1>
+            <aside class="notes">
+              <p>So to conclude...</p>
             </aside>
           </section>
 
@@ -833,7 +831,11 @@ Cardigan cosby sweater fanny pack.
           </section>
 
           <section>
-            <h1>and <b>your</b> module?</h1>
+            <h1>using shared tools and a structured framework</h1>
+          </section>
+
+          <section>
+            <h1>and <i>your</i> module?</h1>
             <aside class="notes">
             </aside>
           </section>
