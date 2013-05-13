@@ -480,46 +480,53 @@ Cardigan cosby sweater fanny pack.
           <section>
             <h1>Guide the flow</h1>
             <h2>Drupal.TabbingManager</h2>
+            <aside class="notes">
+              <p>[Wim] Jesse explained an important component for accessible dynamic pages in Drupal 8 that she got committed.</p>
+              <p>That was about aural updates, about communicating change. What's also important, is to assist in keyboard navigation, to guide the flow of the user throughout your application, throughout Drupal.</p>
+              <p>That brings us to the other big component: the tabbing manager. Both of us worked to get this in Drupal core.</p>
+            </aside>
           </section>
           <section>
-            <h2>Constrain tabbable elements to just those necessary to complete a task.</h2>
+            <h2>Why Drupal.TabbingManager?</h2>
+            <div class="fragment">
+              <blockquote>Depending upon the action to be performed by the dialog, the object with focus before the dialog box is opened should be saved. This will allow restoring focus to this element when the dialog box is closed.</blockquote>
+              <div class="sources">
+              <small><a href="http://www.w3.org/TR/wai-aria-practices/#modal_dialog">http://www.w3.org/TR/wai-aria-practices/#modal_dialog</a></small>
+              </div>
+            </div>
+            <aside class="notes">
+              <p>[Wim] This is quote from the spec. What it basically says is "x and y should happen". But it does not specify <em>how</em> that should happen.<br>
+              So, basically the spec says: "figure it out yourself"…</p>
+              <p>This might lead you think that this is rather messy … and you would be absolutely right!</p>
+            </aside>
+          </section>
+          <section>
+            <h2>Managing tabbing is <em>difficult</em></h2>
+            <aside class="notes">
+              <p>[Wim] What we want to avoid is putting the responsibility of tabbing management on every individual contributed module that might need it. (We had to solve it for in-place editing and the Drupal 8 toolbar.)</p>
+              <p>The overlay module already had code to deal with this. What we did, was pull it out of there, and make it possible to use it for more advanced use cases.</p>
+            </aside>
+          </section>
+          <section>
+            <h2>What?</h2>
+            <blockquote>Constrain tabbable elements to just those necessary to complete a task.</blockquote>
+            <aside class="notes">
+              <p>[Wim] The essence of the tabbing manager is just this: constrain tabbing (i.e. keyboard navigation) to potentially relevant elements only.</p>
           </section>
           <section>
             <h2>Overlay module</h2>
             <img src="images/devel_a11y/tabbingmanager.visualize.png" alt="Screenshot of Overlay module's constrained tabbing — visualized by devel_a11y." />
+            <aside class="notes">
+              <p>[Wim] Here we see a visualization of which elements are reachable via tabbing in the overlay. As you can see, it is only possible to tab to either the toolbar buttons or any of the elements within the overlay. It is impossible to reach elements on the underlying page — elements that were reachable before opening the overlay.</p>
+            </aside>
           </section>
           <section>
             <h2>Edit module</h2>
             <p>TODO: Need an image of Edit with tabbing constrained. Visualized by devel_a11y.</p>
             <p>This still needs to be implemented in Edit module: <a href="http://drupal.org/node/1844220#comment-7378902">http://drupal.org/node/1844220#comment-7378902</a></p>
-          </section>
-          <section>
-            <h2>Who is responsible?</h2>
             <aside class="notes">
-              <p>Who is responsible for tabbing management?</p>
-            </aside>
-          </section>
-          <section>
-            <h2>The developer!</h2>
-          </section>
-          <section>
-            <blockquote>Depending upon the action to be performed by the dialog, the object with focus before the dialog box is opened should be saved. This will allow restoring focus to this element when the dialog box is closed.</blockquote>
-            <div class="sources">
-              <small><a href="http://www.w3.org/TR/wai-aria-practices/#modal_dialog">http://www.w3.org/TR/wai-aria-practices/#modal_dialog</a></small>
-            </div>
-            <aside class="notes">
-              <!--
-              [Wim] Without a clear example, this is probably going to be a hard to grok slide.
-              -->
-            </aside>
-          </section>
-          <section>
-            <h2>Not gonna lie, this stuff is messy</h2>
-          </section>
-          <section>
-            <h2>Managing tabbing is <em>difficult</em></h2>
-            <aside class="notes">
-              <p>[Jesse] What we want to avoid is putting the responsibility of tabbing management on every individual contributed module that might need it.</p>
+              <p>[Wim] And here's a more complex example: instead of relatively static and big sections of the page, the determination of which elements are reachable is now highly dynamic.</p>
+              <p>While in-place editing, you can only reach the in-place editable fields and the in-place editing toolbar. When in-place editing a specific field, the list of tabbable elements is dynamically updated: only the in-place editor and the in-place editing toolbar are now reachable.</p>
             </aside>
           </section>
 
