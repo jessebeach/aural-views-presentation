@@ -207,9 +207,16 @@
             <h1>The accessible-to-usable scale</h1>
           </section>
           <section>
-            !! We need the chart on slide 19 here.
+            <img src="images/accessibility-scale.png" />
             <aside class="notes">
-              <p>Note: [Wim] Chart.js does not support labels within pie charts :( How do you want to do this?</p>
+              <p>In trying to determine the scale of the effort to bring the aural experience of Drupal's interface up to the same level of polish of the visual UI, we wanted to understand just how far apart they might be.</p>
+              <p>So we put together this chart that plots the visual and aural UI experiences from a lower bound of inaccessible (a value of 0) to an upper bound of delightful interaction (a value of 4).</p>
+              <p>We might say that the visual content consumption experience of Drupal ranges from 2.5 to 3.5.</p>
+              <p>The visual site administration experience ranges from a 2 to 3.5</p>
+              <p>The aural content consumption experience ranges from 1.5 to 3</p>
+              <p>The aural site administration experience ranges from 0 to 3</p>
+              <p>We propose that the aural site administration experience -- managing content, managing views, configuring a site -- has the most variability in experience within Drupal.</p>
+              <p>As developers, we have tended to focus our accessibility improvements on static markup which is important, but it's only half the story.</p>
             </aside>
           </section>
 
@@ -230,18 +237,6 @@
               <p>Note: [Wim] Chart.js does not support labels within pie charts :( How do you want to do this?</p>
             </aside>
           </section>
-        </section>
-
-        <section>
-          <section>
-            <h1>Accessibility</h1>
-          </section>
-          <section>
-            <h1>Rich experience</h1>
-          </section>
-          <aside class="notes">
-            <p>Rather than accessibility for some, we talk about rich experiences for everyone. This phrase comes from Everett Zufelt.</p>
-          </aside>
         </section>
 
         <section>
@@ -861,6 +856,15 @@ Cardigan cosby sweater fanny pack.
         progress: true,
         history: true,
         center: true,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '100%',
+        height: '100%',
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.05,
 
         theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
         transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
