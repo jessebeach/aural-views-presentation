@@ -588,40 +588,9 @@ Cardigan cosby sweater fanny pack.
             <h1>Embrace <b>modalities</b></h1>
             <h2>Backbone.js</h2>
             <aside class="notes">
-              <p>A modality refers to the medium that we use to access information. That medium may be visual, it may be aural; it might be through touch as well.</p>
-              <p>We can account for modalities in our code. Indeed we've begun to do this in Drupal Core.</p>
-            </aside>
-            <!--
-              [Wim] This is still too vague? I think the "better keyboard nav = better for power users" argument slide was a good one, so maybe that should be reintroduced here?
-            -->
-          </section>
-          <section>
-            <h2>Backbonification of Core JS</h2>
-            <pre><code class="javascript">function toggleEditMode (event, data) {
-  for (var i = contextuals.length - 1; i >= 0; i--) {
-    contextuals[i][(data.status) ? 'detachHighlightBehaviors' : 'attachHighlightBehaviors']();
-    contextuals[i].$region.toggleClass('contextual-region-active', data.status);
-  }
-}</code></pre>
-            <p>versus</p>
-            <pre><code class="javascript">_toggleEditMode: function (event, data) {
-  Drupal.contextual.collection.each(function (model) {
-    model.set('isLocked', data.status);
-  });
-}</code></pre>
-            <aside class="notes">
-              <ul>
-                <li>[Wim] Instead of each piece of JS inventing its own structure (cfr. Drupal's NIH — Not Invented Here): use Models, Collections and Views.</li>
-                <li>[Wim] From: the typical Drupal JS, where almost everything is DOM/DOM event driven.</li>
-                <li>[Wim] To: well-structured JS, with a few very basic structures, we use Backbone's structures</li>
-                <li>[Wim] So, question: "Why Backbone.js?".</li>
-              </ul>
-            </aside>
-          </section>
-          <section>
-            <h1>one <em>model</em>,<br />many <em>views</em></h1>
-            <aside class="notes">
-              <p>We are using Backbone to formalize modal interactions</p>
+              <p>[Wim] A modality refers to the medium that we use to access information. That medium may be visual, it may be aural; it might be through touch as well.</p>
+              <p>We can account for modalities in our code. That's we've begun to do in Drupal core.</p>
+              <p>To do that, we're leveraging Backbone.js</p>
             </aside>
           </section>
           <section>
@@ -640,6 +609,12 @@ Cardigan cosby sweater fanny pack.
           </section>
           <section>
             <h2>Separation of concerns matters</h2>
+          </section>
+          <section>
+            <h1>one <em>model</em>,<br />many <em>views</em></h1>
+            <aside class="notes">
+              <p>We are using Backbone to formalize modal interactions</p>
+            </aside>
           </section>
           <section>
             <h2>Before Drupal 8</h2>
@@ -665,7 +640,7 @@ Cardigan cosby sweater fanny pack.
             </aside>
           </section>
           <section>
-            <h2>Why Backbone.js?</h2>
+            <h2>Example</h2>
             <pre><code class="javascript">function toggleEditMode (event, data) {
   for (var i = contextuals.length - 1; i >= 0; i--) {
     contextuals[i][(data.status) ? 'detachHighlightBehaviors' : 'attachHighlightBehaviors']();
@@ -679,7 +654,11 @@ Cardigan cosby sweater fanny pack.
   });
   }</code></pre>
             <aside class="notes">
-              <p>[Wim] This is pretty much the same slide as before — now the reader/attendee should be able to understand better why this is so much better.</p>
+              <ul>
+                <li>[Wim] Instead of each piece of JS inventing its own structure (cfr. Drupal's NIH — Not Invented Here): use Models, Collections and Views.</li>
+                <li>From: the typical Drupal JS, where almost everything is DOM/DOM event driven.</li>
+                <li>To: well-structured JS, with a few very basic structures, we use Backbone's structures</li>
+              </ul>
             </aside>
           </section>
           <section>
@@ -796,9 +775,6 @@ Cardigan cosby sweater fanny pack.
           </section>
           <section>
             <h2>Not familiar with using a screen reader?</h2>
-          </section>
-          <section>
-            <h2>Want to know if tabbing is constrained?</h2>
           </section>
           <section>
             <h2>Install the "Devel accessibility" module</h2>
