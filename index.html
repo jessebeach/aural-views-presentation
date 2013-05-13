@@ -357,6 +357,11 @@
             <h1>Drupal.announce</h1>
             <aside class="notes">
               <p>In Drupal 8, we provide a simple way to turn text into speech.</p>
+              <p>The Drupal.announce function was first brought up at the Drupal Camp Toronto accessibility sprint in the fall of 2012.</p>
+              <p>We need a way to express changes in the state of the toolbar that could not be described with existing aria state markup.</p>
+              <p>An example is whether or not a toolbar tray is open when a tab in the toolbar is toggled.</p>
+              <p>It quickly became obvious that many modules in Drupal would benefit from a system that could read arbitrary strings through the screen reader.</p>
+              <p>It wasn't until the later winter of 2013 that we put together the first prototype of the Drupal.announce function.</p>
             </aside>
           </section>
           <section>
@@ -370,6 +375,19 @@
   );
             </code></pre>
             <aside class="notes">
+              <p>We invoke the Drupal.announce function by passing it a string that will be read by the screen reader.</p>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code data-trim contenteditable class="html">
+&lt;body&gt;
+  ...
+  &lt;div id="drupal-live-announce" class="element-invisible" aria-live="polite" aria-busy="false"&gt;The application has been updated.&lt;/div&gt;
+&lt;/body&gt;
+            </code></pre>
+            <aside class="notes">
+              <p>Drupal.announce manages a hidden div on the body tag. When the text of this tag is changed, the screen reader reads the new text.</p>
             </aside>
           </section>
           <section>
@@ -392,10 +410,12 @@ Cardigan cosby sweater fanny pack.
         <section>
           <section>
             <h1>Wait, doesn't this accessibility feature depend on JavaScript?</h1>
+            <aside class="notes">
+              <p>Not really. Drupal.announce is only necessary for dynamic applications and those will already be dependent on Javascript.</p>
+              <p>More importantly, JavaScript use among people who also use a screen reader is nearly 100%.</p>
+            </aside>
           </section>
-          <section>
-            <h1>Isn't that bad?</h1>
-          </section>
+
           <section>
             <table style="border: 1px solid gray; margin: 0 auto">
               <thead>
