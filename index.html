@@ -594,8 +594,9 @@ Cardigan cosby sweater fanny pack.
             <h1>Embrace <b>modalities</b></h1>
             <h2>Backbone.js</h2>
             <aside class="notes">
-              <p>[Wim] A modality refers to the medium that we use to access information. That medium may be visual, it may be aural; it might be through touch as well.</p>
-              <p>We can account for modalities in our code. That's we've begun to do in Drupal core.</p>
+              <p>[Wim] We want all Drupal developers to embrace modalities.</p>
+              <p>A modality refers to the medium that we use to access information. That medium may be visual, it may be aural; it might be through touch as well.</p>
+              <p>We can account for modalities in our code. That's we've begun to do in Drupal 8 core.</p>
               <p>To do that, we're leveraging Backbone.js</p>
             </aside>
           </section>
@@ -605,9 +606,9 @@ Cardigan cosby sweater fanny pack.
               <small><a href="http://ashkenas.com/backbonejs-1.0/">Jeremy Ashkenas — http://ashkenas.com/backbonejs-1.0/</a></small>
             </div>
             <aside class="notes">
-              <p>Why Backbone?</p>
+              <p>[Wim] Why Backbone?</p>
               <p>No special reason.</p>
-              <p>We don't want to impose a certain highly restrictive structure on JS, nor does Backbone.</p>
+              <p>We don't want to impose a certain highly restrictive structure on Drupal JavaScript, nor does Backbone.</p>
             </aside>
           </section>
           <section>
@@ -615,12 +616,6 @@ Cardigan cosby sweater fanny pack.
           </section>
           <section>
             <h2>Separation of concerns matters</h2>
-          </section>
-          <section>
-            <h1>one <em>model</em>,<br />many <em>views</em></h1>
-            <aside class="notes">
-              <p>We are using Backbone to formalize modal interactions</p>
-            </aside>
           </section>
           <section>
             <h2>Before Drupal 8</h2>
@@ -636,13 +631,21 @@ Cardigan cosby sweater fanny pack.
             <p class="fragment" style="margin-top: 1em">developer<span class="fragment"> ⟶ happy</span></p>
             <aside class="notes">
               <ul>
-                <li>Most (if not all) JS benefits from its state being updated via events, and then things being rerendered in response to those state changes.</li>
+                <li>[Wim] Most (if not all) JS benefits from its state being updated via events, and then things being rerendered in response to those state changes.</li>
                 <li>No more subtle edge cases.</li>
                 <li>Separation of concerns invites better/completer docs.</li>
                 <li>Pre-Drupal 8 JS is often very complex to evolve, and to somebody who never saw the code, nigh impossible to understand all edge cases.</li>
                 <li>So: Backbone because it's widely used, many docs, concise. It tries to do little!</li>
                 <li>Finally: easy to refactor Backbone code to another framework.</li>
               </ul>
+            </aside>
+          </section>
+          <section>
+            <img src="images/backbone.png" alt="A schema explaining the different components of Backbone. Relevant parts to us: data &amp; state are modeled in Backbone Models. Backbone Models of the same type may be grouped in Backbone Collections if that is useful for the use case. Backbone Models are connected to Backbone Views via model event bindings, so that Backbone Views are able to update themselves whenever the data/state changes. A View is typically bound to a DOM element, within which it renders itself." />
+            <p><small>Source: <a href="http://kiranb.scripts.mit.edu/backbone-slides/#compenents-diagram">http://kiranb.scripts.mit.edu/backbone-slides/</a></small></p>
+            <aside class="notes">
+              <p>Note that in Backbone.js, the View is a combination of a View and Controller in the MVC pattern. The Models are intentionally kept stupid, to make it easy to link them with more Views. Since the DOM also combines rendering (HTML elements rendered in a certain way) and event handling (DOM events), and the View is the connection to the DOM, this feels natural.<br />
+              However, if you prefer a full separation, then it's entirely possible to have Views that are solely listening for events and updating the bound Model, and separate Views that are responsible for rendering.</p>
             </aside>
           </section>
           <section>
@@ -661,9 +664,8 @@ Cardigan cosby sweater fanny pack.
   }</code></pre>
             <aside class="notes">
               <ul>
-                <li>[Wim] Instead of each piece of JS inventing its own structure (cfr. Drupal's NIH — Not Invented Here): use Models, Collections and Views.</li>
-                <li>From: the typical Drupal JS, where almost everything is DOM/DOM event driven.</li>
-                <li>To: well-structured JS, with a few very basic structures, we use Backbone's structures</li>
+                <li>[Wim] The top piece of code shows a part of Drupal 8's contextual links JavaScript before conversion to Backbone. It's a DOM event handler. It iterates over an array containing all contextual links, and immediately modifies the DOM (on the last line).</li>
+                <li>The bottom piece of code shows the same function, after conversion to Backbone. It iterates over a Backbone Collection containing Backbone Models — one for each contextual link on the page — and sets a certain attribute on each model. There is a Backbone View that reacts to these model changes and modifies the DOM. Separation of concerns.</li>
               </ul>
             </aside>
           </section>
@@ -671,18 +673,16 @@ Cardigan cosby sweater fanny pack.
             <h1>How-to: Backbone.js for better accessibility</h1>
           </section>
           <section>
-            <img src="images/backbone.png" alt="A schema explaning the different components of Backbone. Relevant parts to us: data &amp; state are modeled in Backbone Models. Backbone Models of the same type may be grouped in Backbone Collections if that is useful for the use case. Backbone Models are connected to Backbone Views via model event bindings, so that Backbone Views are able to update themselves whenver the data/state changes. A View is typically bound to a DOM element, within which it renders itself. " />
+            <h1>one <em>model</em>,<br />many <em>views</em></h1>
             <aside class="notes">
-              <p>Source: http://kiranb.scripts.mit.edu/backbone-slides/#compenents-diagram</p>
-              <p>Note that in Backbone.js, the View is a combination of a View and Controller. The Models are intentionally kept dumb, to make it easy to hook up new Views. Since the DOM also combines rendering (HTML elements rendered in a certain way) and event handling (DOM event handling), and the View is the connection to the DOM, this feels natural.<br />
-              However, if you prefer a full separation, then it's entirely possible to have Views that are solely listening for events and updating the bound Model, and separate Views that are responsible for rendering.</p>
+              <p>[Wim] We are using Backbone to formalize modal interactions: one model to track state, and a view for each modality.</p>
             </aside>
           </section>
           <section>
             <h2>Step 1: create a model</h2>
             <p>Contains state, is stupid. Views update it.</p>
             <div class="fragment">
-              <pre><code class="javascript">Drupal.contextual.Model = Backbone.Model.extend({
+              <pre><code class="javascript">Drupal.contextualToolbar.Model = Backbone.Model.extend({
   defaults: {
     // Whether the toggle is currently in "view" or "edit" mode.
     isViewing: true,
@@ -695,13 +695,15 @@ Cardigan cosby sweater fanny pack.
 });
 </code></pre>
               <p><small>Example from <code>contextual.module</code>.</small></p>
+              <aside class="notes">
+                <p>[We might want to add a transcript here too.]</p>
             </div>
           </section>
           <section>
             <h2>Step 2: create a visual view</h2>
             <p>99.9% of sites need visual output &amp; mouse + touch input.</p>
             <div class="fragment">
-              <pre><code class="javascript">Drupal.contextual.VisualView = Backbone.View.extend({
+              <pre><code class="javascript">Drupal.contextualToolbar.VisualView = Backbone.View.extend({
   events: {
     'click': function () {
       this.model.set('isViewing', !this.model.get('isViewing')),
@@ -731,7 +733,7 @@ Cardigan cosby sweater fanny pack.
             <h2>Step 3: create a keyboard view</h2>
             <p>For screen reader users &amp; power users: keyboard input.</p>
             <div class="fragment">
-              <pre><code class="javascript">Drupal.contextual.KeyboardView = Backbone.View.extend({
+              <pre><code class="javascript">Drupal.contextualToolbar.KeyboardView = Backbone.View.extend({
   // …
 });</code></pre>
               <p style="margin-top: 3em; font-style: italic">Unnecessary here: the <code>click</code> event in the <code>VisualView</code> already works with keyboard input. We don't need <code>focus</code> or <code>blur</code>.</p>
@@ -741,7 +743,7 @@ Cardigan cosby sweater fanny pack.
             <h2>Step 4: create an aural view</h2>
             <p>For screen reader users: aural output.</small></p>
             <div class="fragment">
-              <pre><code class="javascript">Drupal.contextual.AuralView = Backbone.View.extend({
+              <pre><code class="javascript">Drupal.contextualToolbar.AuralView = Backbone.View.extend({
   initialize: function () {
     this.model.on('change', this.render, this);
     this.model.on('change:isViewing', this.manageTabbing, this);
@@ -767,27 +769,21 @@ Cardigan cosby sweater fanny pack.
             <p>Just like that.</p>
           </section>
           <section>
-            <h2>Best practice is evolving as we development more complex interactions.</h2>
+            <h2>Proposed best practice</h2>
+            <p>Evolving as we develop more complex interactions</p>
             <aside class="notes">
-              <p>As Drupal developers, we are all responsible for best practices.</p>
-              <p>since these types of UIs are new (to us at least) we're going to have numerous breakthroughs that replace our previous best practices.</p>
+              <p>[Wim] As Drupal developers, we are all responsible for best practices.</p>
+              <p>Since these types of UIs are new (to us at least) we're going to have numerous breakthroughs that replace our previous best practices.</p>
             </aside>
           </section>
         </section>
 
         <section>
           <section>
-            <h1>devel_a11y module</h1>
+            <h1>Devel accessibility</h1>
           </section>
           <section>
             <h2>Not familiar with using a screen reader?</h2>
-          </section>
-          <section>
-            <h2>Install the "Devel accessibility" module</h2>
-            <p><a href="http://drupal.org/project/devel_a11y" title="Link to the Devel accessibility module's project page on drupal.org.">http://drupal.org/project/devel_a11y</a></p>
-            <aside class="notes">
-              <p>This module exposes the functionality of Drupal.announce through the window.console object. It also shows us tabbing constraints, someting we'll talk more about shortly.</p>
-            </aside>
           </section>
           <section>
             <h2><code>console.log</code> announcements</h2>
@@ -802,6 +798,9 @@ Cardigan cosby sweater fanny pack.
             <aside class="notes">
               <p>[Wim] And it supports both logging and visualizing <code>Drupal.TabbingManager</code> tabbing constraints. A CSS animation occurs whenever the tabbing constraints change, tabbable elements have a red box shadow, the currently focused tabbable element has a green box shadow.</p>
             </aside>
+          </section>
+          <section>
+            <p><a href="http://drupal.org/project/devel_a11y" title="Link to the Devel accessibility module's project page on drupal.org.">http://drupal.org/project/devel_a11y</a></p>
           </section>
         </section>
 
