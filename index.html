@@ -481,9 +481,10 @@ Cardigan cosby sweater fanny pack.
             <h1>Guide the flow</h1>
             <h2>Drupal.TabbingManager</h2>
             <aside class="notes">
-              <p>[Wim] Jesse explained an important component for accessible dynamic pages in Drupal 8 that she got committed.</p>
+              <p>[Wim] Jesse explained an important component for accessible dynamic pages in Drupal 8 that she got committed: Drupal dot announce.</p>
               <p>That was about aural updates, about communicating change. What's also important, is to assist in keyboard navigation, to guide the flow of the user throughout your application, throughout Drupal.</p>
-              <p>That brings us to the other big component: the tabbing manager. Both of us worked to get this in Drupal core.</p>
+              <p>This benefits both screen reader users and power users that prefer keyboard navigation</p>
+              <p>That brings us to the other big accessibility component: the tabbing manager. Both of us worked to get this in Drupal core.</p>
             </aside>
           </section>
           <section>
@@ -517,16 +518,7 @@ Cardigan cosby sweater fanny pack.
             <h2>Overlay module</h2>
             <img src="images/devel_a11y/tabbingmanager.visualize.png" alt="Screenshot of Overlay module's constrained tabbing — visualized by devel_a11y." />
             <aside class="notes">
-              <p>[Wim] Here we see a visualization of which elements are reachable via tabbing in the overlay. As you can see, it is only possible to tab to either the toolbar buttons or any of the elements within the overlay. It is impossible to reach elements on the underlying page — elements that were reachable before opening the overlay.</p>
-            </aside>
-          </section>
-          <section>
-            <h2>Edit module</h2>
-            <p>TODO: Need an image of Edit with tabbing constrained. Visualized by devel_a11y.</p>
-            <p>This still needs to be implemented in Edit module: <a href="http://drupal.org/node/1844220#comment-7378902">http://drupal.org/node/1844220#comment-7378902</a></p>
-            <aside class="notes">
-              <p>[Wim] And here's a more complex example: instead of relatively static and big sections of the page, the determination of which elements are reachable is now highly dynamic.</p>
-              <p>While in-place editing, you can only reach the in-place editable fields and the in-place editing toolbar. When in-place editing a specific field, the list of tabbable elements is dynamically updated: only the in-place editor and the in-place editing toolbar are now reachable.</p>
+              <p>[Wim] Here we see a visualization of which elements are reachable via tabbing in the overlay. It is only possible to tab to either the toolbar buttons or any of the elements within the overlay. It is impossible to reach elements on the underlying page — elements that were reachable before opening the overlay.</p>
             </aside>
           </section>
 
@@ -552,7 +544,14 @@ Cardigan cosby sweater fanny pack.
     this.model.set('tabbingContext', tabbingContext);
   }
 }</code></pre>
-             <p><small>Example from <code>contextual.module</code>.</small></p>
+            <p><small>Example from <code>contextual.module</code>.</small></p>
+            <aside class="notes">
+              <p>[Wim] Let's first look at the code within the if-test at the bottom. That's where a tabbing constraint gets applied. We call Drupal dot tabbingManager dot constrain, with a selector for the elements that should be tabbable.<br />
+              The constrain method returns a "tabbing context". Tabbing contexts are the building blocks that the tabbing manager uses to keep track of things. We store a reference to it.
+              </p>
+              <p>Now let's look at the rest of the function. Let's start at the top. First, a reference to the existing tabbing context (if any) is retrieved. Then, if there indeed is a tabbing context, we release it. Finally, if the "is viewing" variable equals false, we apply a new tabbing constraint.</p>
+              <p>Looking at the whole, this method gets called whenever the "is viewing" variable's value changes (from true to false or vice versa). The existing tabbing constraint is always released. A new tabbing constraint is applied if the value for "is viewing" equals false, which means that the pencil icon (also known as "edit mode") is toggled in the toolbar.</p>
+            </aside>
             </div>
           </section>
           <section>
@@ -568,17 +567,24 @@ Cardigan cosby sweater fanny pack.
   Drupal.announce(Drupal.t('Press the esc key to exit.'));
 },</code></pre>
               <p><small>Example from <code>contextual.module</code>.</small></p>
+              <aside class="notes">
+                <p>[Wim] Now, it's important to not forget to announce tabbing constraints. We can do that with the component that Jesse explained just now: Drupal dot announce.</p>
+                <p>We announce: 1) that tabbing is constrained, 2) to which elements it is constrained, 3) a keyboard shortcut that is highly relevant to the user: one to cancel the tabbing constraint.</p>
+              </aside>
             </div>
           </section>
           <section>
             <h2>Complex tabbing flows</h2>
             <p>Tabbing contexts can be stacked and popped as a user moves between task flows, even between modules.</p>
+            <aside class="notes">
+              <p>[Wim] Something that Jesse and I found very important, is to ensure that multiple modules can each have tabbing constraints simultaneously, without running into problems. Otherwise, Drupal contrib would not be able to use the tabbing manager in practice.</p>
+              <p>For example: the user can navigate to the edit mode toggle in the toolbar, toggle it and then tabbing is constrained to contextual links. The user can then tab from one contextual link to the next, and open them. If the user were to start in-place editing from one of those contextual links, then the in-place editing functionality would apply a new tabbing constraint (that gets stacked on top of the previous one). When stopping in-place editing, the contextual links tabbing constraint will be applied again. (The in-place editing tabbing constraint was popped.)</p>
+            </aside>
           </section>
           <section>
             <iframe width="100%" height="100%" src="http://www.youtube.com/embed/Znu0ZFB1GA0" frameborder="0" allowfullscreen></iframe>
             <aside class="notes">
               <p>[Wim] Let's have another look at how tabbing is constrained when the user enables edit mode and then opens the overlay. Note how the edit mode tabbing constraint is restored after the overlay tabbing constraint context is removed.</p>
-              <p>[Wim] The tabbing constraint contexts do not need to be managed by any module. If your module releases its constraints, but that constraint is overridden and not active, it will not be activated again later.</p>
             </aside>
           </section>
         </section>
