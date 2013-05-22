@@ -723,11 +723,6 @@ Cardigan cosby sweater fanny pack.
 </code></pre>
               <p><small>Example from <code>contextual.module</code>.</small></p>
             </div>
-            <aside class="notes">
-              <p>As a general rule: a Backbone View must receive two things: a Backbone Model and its "root" DOM element.</p>
-              <p>This is our current advised best-practice: create a Visual View that covers the needs of >90% of the users — being visual output and mouse + touch handling. Then the developer may add a Keyboard View to support keyboard navigation. And finally, the developer may add an Aural View, to provide auditive feedback via Drupal.announce and set the appropriate ARIA attributes.</p>
-              <p>In other words: we don't want to force every developer to create an Aural View. We just want to make it as easy as possible to support it.</p>
-            </aside>
           </section>
           <section>
             <h2>Step 3: create a keyboard view</h2>
@@ -761,6 +756,12 @@ Cardigan cosby sweater fanny pack.
 });
 </code></pre>
               <p><small>Example from <code>contextual.module</code>.</small></p>
+              <aside class="notes">
+                <p>As a general rule: a Backbone View must receive two things: a Backbone Model and its "root" DOM element.</p>
+                <p>This is our current advised best-practice: create a Visual View that covers the needs of >90% of the users — being visual output and mouse + touch handling. Then the developer may add a Keyboard View to support keyboard navigation. And finally, the developer may add an Aural View, to provide auditive feedback via Drupal.announce and set the appropriate ARIA attributes.</p>
+                <p>In other words: we don't want to force every developer to create an Aural View. We just want to make it as easy as possible to support it.</p>
+              </aside>
+
             </div>
           </section>
           <section>
